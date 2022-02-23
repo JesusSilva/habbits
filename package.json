@@ -1,0 +1,16 @@
+{
+  "name": "habbits",
+  "author": "Jesus Silva Mendez",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Application to keep track of clients of a nutritionist/trainer.",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JesusSilva/habbits.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JesusSilva/habbits/issues"
+  },
+  "homepage": "https://github.com/JesusSilva/habbits#readme"
+}
