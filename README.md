@@ -52,7 +52,7 @@ Habbits aims to provide the following tools:
     - clientId: ObjectId('Client')
 
 - Training
-    - exercisesIds: [ObjectId('Exercises')]
+    - exercises: [ObjectId('Exercises')]
     - clientId: ObjectId('Client')
 
 - Exercise
@@ -66,7 +66,9 @@ Habbits aims to provide the following tools:
     - image: String
 
 - Diet
-    - dayId: ObjectId('Day')
+    - days: [ObjectId('Day')]
+    - instructions: String
+    - observations: String
     - clientId: ObjectId('Client')
 
 - Day
@@ -76,9 +78,6 @@ Habbits aims to provide the following tools:
     - meals: String
     - snack: String
     - dinner: String
-    - instructions: String
-    - observations: String
-    - clientId: ObjectId('Client')
 ```
 
 &nbsp;

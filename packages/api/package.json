@@ -1,0 +1,22 @@
+{
+  "name": "habbits-back",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev src/server.ts",
+    "start": "yarn run build && node dist/server.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "fastify": "^3.27.1",
+    "fastify-cors": "^6.0.2",
+    "mongoose": "^6.2.0",
+    "pino": "^7.6.5",
+    "pino-pretty": "^7.5.1",
+    "ts-node-dev": "1.1.8"
+  },
+  "devDependencies": {
+    "@types/pino": "^7.0.5"
+  }
+}
