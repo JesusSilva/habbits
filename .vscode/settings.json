@@ -1,7 +1,7 @@
 {
   "files.exclude": {
     ".history": true,
-    "node_modules": true,
+    ".vscode": true,
     "packages/app/.next": true
   }
 }

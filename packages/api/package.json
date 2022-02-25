@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "start": "yarn run build && node dist/server.js",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
