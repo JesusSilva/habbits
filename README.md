@@ -12,7 +12,7 @@
 
 &nbsp;
 
-## Description:
+## Description
 
 Habbits addresses a common misconception in many nutritionist and personal trainer clinics. Most clinics still use a word, pdf or excel file to create diets and workout plans. That's why Habbits was born, to provide a dashboard where every nutritionist or trainer can keep an exhaustive control of their clients with total transparency.
 
@@ -25,7 +25,7 @@ Habbits aims to provide the following tools:
 
 &nbsp;
 
-## Models:
+## Models
 
 ```yaml
 - Client
@@ -52,6 +52,7 @@ Habbits aims to provide the following tools:
     - clientId: ObjectId('Client')
 
 - Training
+    - name: String
     - exercises: [ObjectId('Exercises')]
     - clientId: ObjectId('Client')
 
@@ -66,6 +67,7 @@ Habbits aims to provide the following tools:
     - image: String
 
 - Diet
+    - name: String
     - days: [ObjectId('Day')]
     - instructions: String
     - observations: String
@@ -85,12 +87,12 @@ Habbits aims to provide the following tools:
     - description: String
     - latitude: String
     - longitude: String
-
+    - address: String
 ```
 
 &nbsp;
 
-## API:
+## API
 
 ```yaml
 🏷️  Routes:
@@ -141,6 +143,6 @@ Habbits aims to provide the following tools:
 
 &nbsp;
 
-## License:
+## License
 
 **_MIT - Massachusetts Institute of Technology_**
