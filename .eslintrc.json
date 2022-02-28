@@ -16,7 +16,8 @@
   "plugins": ["react", "@typescript-eslint", "@next/eslint-plugin-next"],
   "rules": {
     "space-before-function-paren": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "multiline-ternary": ["error", "never"]
   },
   "settings": {
     "react": {
