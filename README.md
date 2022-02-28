@@ -79,6 +79,13 @@ Habbits aims to provide the following tools:
     - snack: String
     - dinner: String
 
+- Booking
+    - date: Number
+    - clientId: String
+    - description: String
+    - latitude: String
+    - longitude: String
+
 ```
 
 &nbsp;
