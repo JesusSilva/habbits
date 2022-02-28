@@ -78,19 +78,59 @@ Habbits aims to provide the following tools:
     - meals: String
     - snack: String
     - dinner: String
+
 ```
 
 &nbsp;
 
 ## API:
 
-Under development
+```yaml
+🏷️  Routes:
+  - GET     /
+  - GET     /verify
+
+  - GET     /users
+  - POST    /users
+  - PATCH   /users/:id
+  - DELETE  /users/:id
+
+  - GET     /measures
+  - POST    /measures
+  - PATCH   /measures/:id
+  - DELETE  /measures/:id
+
+  - GET     /exercises
+  - POST    /exercises
+  - PATCH   /exercises/:id
+  - DELETE  /exercises/:id
+
+  - GET     /days
+  - POST    /days
+  - PATCH   /days/:id
+  - DELETE  /days/:id
+
+  - GET     /booking
+  - POST    /booking
+  - PATCH   /booking/:id
+  - DELETE  /booking/:id
+```
 
 &nbsp;
 
 ## Commands
 
-Under development
+| Name        | Package | Command                                     | Description                                    |
+| ----------- | ------- | ------------------------------------------- | ---------------------------------------------- |
+| server:dev  | api     | "yarn workspace habbits-back dev"           | Run api in development mode                    |
+| client:dev  | app     | "yarn workspace habbits-front dev"          | Run app in development mode                    |
+| dev         | general | "npm-run-all -l -p server:dev client:dev"   | Run api and app in development mode            |
+| prepare     | general | "husky install"                             | Install husky when downloading the application |
+| pre-commit  | general | "lint-staged"                               | Run lint-staged before committing              |
+| server:lint | api     | "yarn workspace habbits-back lint"          | Execute linter in the api                      |
+| client:lint | app     | "yarn workspace habbits-front lint"         | Execute linter in the app                      |
+| lint        | general | "npm-run-all -l -p server:lint client:lint" | Execute linter in the api and app              |
+| commit      | general | "cz"                                        | Execute commitizen                             |
 
 &nbsp;
 
