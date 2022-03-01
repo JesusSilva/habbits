@@ -28,10 +28,11 @@ Habbits aims to provide the following tools:
 ## Models
 
 ```yaml
-- Client
+- Users
     - name: String
     - dateOfBirth: String
     - email: String
+    - email: Number
     - documentType: String
     - documentID: String
     - address: String
@@ -49,15 +50,14 @@ Habbits aims to provide the following tools:
     - waist: Number
     - hip: Number
     - legs: Number
-    - clientId: ObjectId('Client')
+    - userId: ObjectId('User')
 
 - Training
     - name: String
     - exercises: [ObjectId('Exercises')]
-    - clientId: ObjectId('Client')
+    - userId: ObjectId('User')
 
 - Exercise
-    - date: String
     - name: String
     - description: String
     - mechanics: String
@@ -71,10 +71,10 @@ Habbits aims to provide the following tools:
     - days: [ObjectId('Day')]
     - instructions: String
     - observations: String
-    - clientId: ObjectId('Client')
+    - userId: ObjectId('User')
 
 - Day
-    - date: String
+    - date: Number
     - breakfast: String
     - midmorning: String
     - meals: String
@@ -83,7 +83,7 @@ Habbits aims to provide the following tools:
 
 - Booking
     - date: Number
-    - clientId: String
+    - userId: String
     - description: String
     - latitude: String
     - longitude: String
