@@ -96,33 +96,53 @@ Habbits aims to provide the following tools:
 
 ```yaml
 🏷️  Routes:
-  - GET     /
-  - GET     /verify
+  - USERS: 
+      ├── GET     /users
+      ├── GET     /users/:id
+      ├── POST    /users
+      ├── PATCH   /users/:id
+      └── DELETE  /users/:id
 
-  - GET     /users
-  - POST    /users
-  - PATCH   /users/:id
-  - DELETE  /users/:id
+  - MEASURES: 
+      ├── GET     /measures
+      ├── GET     /measures/:id
+      ├── POST    /measures
+      ├── PATCH   /measures/:id
+      └── DELETE  /measures/:id
 
-  - GET     /measures
-  - POST    /measures
-  - PATCH   /measures/:id
-  - DELETE  /measures/:id
+  - EXERCISES: ├── GET     /exercises
+      ├── GET     /exercises/:id
+      ├── POST    /exercises
+      ├── PATCH   /exercises/:id
+      └── DELETE  /exercises/:id
 
-  - GET     /exercises
-  - POST    /exercises
-  - PATCH   /exercises/:id
-  - DELETE  /exercises/:id
+  - TRAININGS: 
+      ├── GET     /trainings
+      ├── GET     /trainings/:id
+      ├── POST    /trainings
+      ├── PATCH   /trainings/:id
+      └── DELETE  /trainings/:id
 
-  - GET     /days
-  - POST    /days
-  - PATCH   /days/:id
-  - DELETE  /days/:id
+  - DAYS: 
+      ├── GET     /days
+      ├── GET     /days/:id
+      ├── POST    /days
+      ├── PATCH   /days/:id
+      └── DELETE  /days/:id
 
-  - GET     /booking
-  - POST    /booking
-  - PATCH   /booking/:id
-  - DELETE  /booking/:id
+  - DIETS: 
+      ├── GET     /diets
+      ├── GET     /diets/:id
+      ├── POST    /diets
+      ├── PATCH   /diets/:id
+      └── DELETE  /diets/:id
+
+  - BOOKINGS: 
+      ├── GET     /bookings
+      ├── GET     /bookings/:id
+      ├── POST    /bookings
+      ├── PATCH   /bookings/:id
+      └── DELETE  /bookings/:id
 ```
 
 &nbsp;
