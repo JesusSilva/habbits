@@ -110,7 +110,8 @@ Habbits aims to provide the following tools:
       ├── PATCH   /measures/:id
       └── DELETE  /measures/:id
 
-  - EXERCISES: ├── GET     /exercises
+  - EXERCISES: 
+      ├── GET     /exercises
       ├── GET     /exercises/:id
       ├── POST    /exercises
       ├── PATCH   /exercises/:id
