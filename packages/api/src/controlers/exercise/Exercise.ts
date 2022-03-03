@@ -1,3 +1,4 @@
+import { Exclude, Expose } from 'class-transformer'
 import mongoose, { Schema, Document } from 'mongoose'
 
 export interface ExerciseInterface extends Document {
@@ -8,6 +9,18 @@ export interface ExerciseInterface extends Document {
   material: String
   level: String
   image: String
+}
+
+@Exclude()
+export class ExerciseClass {
+  @Expose({ name: '_id' }) id!: string
+  @Expose() name!: String
+  @Expose() description!: String
+  @Expose() mechanics!: String
+  @Expose() muscle!: String
+  @Expose() material!: String
+  @Expose() level!: String
+  @Expose() image!: String
 }
 
 const schema = new Schema(

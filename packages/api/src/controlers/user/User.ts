@@ -1,9 +1,11 @@
 import mongoose, { Schema, Document } from 'mongoose'
+import { Expose, Exclude } from 'class-transformer'
 
 export interface UserInterface extends Document {
   name: String
   dateOfBirth: String
   email: String
+  phone: Number
   documentType: String
   documentID: String
   address: String
@@ -11,6 +13,22 @@ export interface UserInterface extends Document {
   zip: Number
   province: String
   country: String
+}
+
+@Exclude()
+export class UserClass {
+  @Expose({ name: '_id' }) id!: string
+  @Expose() name!: string
+  @Expose() dateOfBirth!: string
+  @Expose() email!: string
+  @Expose() phone!: number
+  @Expose() documentType!: string
+  @Expose() documentID!: string
+  @Expose() address!: string
+  @Expose() city!: string
+  @Expose() zip!: number
+  @Expose() province!: string
+  @Expose() country!: string
 }
 
 const schema = new Schema(

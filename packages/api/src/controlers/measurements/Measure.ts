@@ -1,7 +1,8 @@
+import { Exclude, Expose } from 'class-transformer'
 import mongoose, { Schema, Document } from 'mongoose'
-import { UserInterface } from '../users/User'
+import { UserInterface } from '../user/User'
 
-export interface MeasuresInterface extends Document {
+export interface MeasureInterface extends Document {
   date: Number
   height: Number
   weight: Number
@@ -11,6 +12,20 @@ export interface MeasuresInterface extends Document {
   hip: Number
   legs: Number
   userId: UserInterface['_id']
+}
+
+@Exclude()
+export class MeasureClass {
+  @Expose({ name: '_id' }) id!: string
+  @Expose() date!: Number
+  @Expose() height!: Number
+  @Expose() weight!: Number
+  @Expose() arm!: Number
+  @Expose() breast!: Number
+  @Expose() waist!: Number
+  @Expose() hip!: Number
+  @Expose() legs!: Number
+  @Expose() userId: UserInterface['_id']
 }
 
 const schema = new Schema(
@@ -30,4 +45,4 @@ const schema = new Schema(
   }
 )
 
-export const Measures = mongoose.model<MeasuresInterface>('Measures', schema)
+export const Measure = mongoose.model<MeasureInterface>('Measure', schema)

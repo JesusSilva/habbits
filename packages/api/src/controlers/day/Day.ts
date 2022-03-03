@@ -1,3 +1,4 @@
+import { Exclude, Expose } from 'class-transformer'
 import mongoose, { Schema, Document } from 'mongoose'
 
 export interface DayInterface extends Document {
@@ -7,6 +8,17 @@ export interface DayInterface extends Document {
   meals: String
   snack: String
   dinner: String
+}
+
+@Exclude()
+export class DayClass {
+  @Expose({ name: '_id' }) id!: string
+  @Expose() date!: Number
+  @Expose() breakfast!: String
+  @Expose() midmorning!: String
+  @Expose() meals!: String
+  @Expose() snack!: String
+  @Expose() dinner!: String
 }
 
 const schema = new Schema(
