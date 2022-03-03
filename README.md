@@ -32,7 +32,7 @@ Habbits aims to provide the following tools:
     - name: String
     - dateOfBirth: String
     - email: String
-    - email: Number
+    - phone: Number
     - documentType: String
     - documentID: String
     - address: String
@@ -50,12 +50,12 @@ Habbits aims to provide the following tools:
     - waist: Number
     - hip: Number
     - legs: Number
-    - userId: ObjectId('User')
+    - userId: UserInterface['_id']
 
 - Training
     - name: String
-    - exercises: [ObjectId('Exercises')]
-    - userId: ObjectId('User')
+    - exercises: ExerciseInterface['_id']
+    - userId: UserInterface['_id']
 
 - Exercise
     - name: String
@@ -68,10 +68,10 @@ Habbits aims to provide the following tools:
 
 - Diet
     - name: String
-    - days: [ObjectId('Day')]
     - instructions: String
     - observations: String
-    - userId: ObjectId('User')
+    - days: DayInterface['_id']
+    - userId: UserInterface['_id']
 
 - Day
     - date: Number
