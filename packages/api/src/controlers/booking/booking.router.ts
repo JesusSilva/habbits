@@ -52,7 +52,7 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
     console.table(request.body)
 
     try {
-      const booking = await Booking.findByIdAndUpdate(request.params.id, request.body)
+      const booking = await Booking.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(BookingClass, booking))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

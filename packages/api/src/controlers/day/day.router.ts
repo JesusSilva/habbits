@@ -52,7 +52,7 @@ export const daysRouter: FastifyPluginAsync = async (server) => {
     console.table(request.body)
 
     try {
-      const day = await Day.findByIdAndUpdate(request.params.id, request.body)
+      const day = await Day.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(DayClass, day))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

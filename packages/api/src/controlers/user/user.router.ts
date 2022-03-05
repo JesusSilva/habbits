@@ -52,7 +52,7 @@ export const usersRouter: FastifyPluginAsync = async (server) => {
     console.table(request.body)
 
     try {
-      const user = await User.findByIdAndUpdate(request.params.id, request.body)
+      const user = await User.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(UserClass, user))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

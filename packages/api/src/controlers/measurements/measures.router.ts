@@ -52,7 +52,7 @@ export const measuresRouter: FastifyPluginAsync = async (server) => {
     console.table(request.body)
 
     try {
-      const measure = await Measure.findByIdAndUpdate(request.params.id, request.body)
+      const measure = await Measure.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(MeasureClass, measure))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

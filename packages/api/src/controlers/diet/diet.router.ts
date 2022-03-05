@@ -52,7 +52,7 @@ export const dietsRouter: FastifyPluginAsync = async (server) => {
     console.table(request.body)
 
     try {
-      const diet = await Diet.findByIdAndUpdate(request.params.id, request.body)
+      const diet = await Diet.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(DietClass, diet))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

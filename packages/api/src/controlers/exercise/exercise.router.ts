@@ -52,7 +52,7 @@ export const exercisesRouter: FastifyPluginAsync = async (server) => {
     console.table(request.body)
 
     try {
-      const exercise = await Exercise.findByIdAndUpdate(request.params.id, request.body)
+      const exercise = await Exercise.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(ExerciseClass, exercise))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

@@ -5,8 +5,8 @@ export interface BookingInterface extends Document {
   date: Number
   userId: String
   description: String
-  latitude: String
-  longitude: String
+  latitude: Number
+  longitude: Number
   address: String
 }
 
@@ -16,8 +16,8 @@ export class BookingClass {
   @Expose() date!: Number
   @Expose() userId!: String
   @Expose() description!: String
-  @Expose() latitude!: String
-  @Expose() longitude!: String
+  @Expose() latitude!: Number
+  @Expose() longitude!: Number
   @Expose() address!: String
 }
 
@@ -28,10 +28,10 @@ const schema = new Schema(
       unique: true,
       required: [true, 'Date required']
     },
-    userId: { type: String, required: [true, 'userId required'] },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: [true, 'userId required'] },
     description: { type: String },
-    latitude: { type: String },
-    longitude: { type: String },
+    latitude: { type: Number },
+    longitude: { type: Number },
     address: { type: String }
   },
   {

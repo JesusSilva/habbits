@@ -48,7 +48,7 @@ export const trainingsRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`Patch http://${ROOT}:${PORT}/trainings/${request.params.id}`)
     console.table(request.body)
     try {
-      const training = await Training.findByIdAndUpdate(request.params.id, request.body)
+      const training = await Training.findByIdAndUpdate(request.params.id, request.body, { new: true })
       return response.code(200).send(FormatResponse(TrainingClass, training))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
