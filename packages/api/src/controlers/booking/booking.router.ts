@@ -8,12 +8,11 @@ import { Booking, BookingClass, BookingInterface } from './Booking'
 
 export const bookingsRouter: FastifyPluginAsync = async (server) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: BookingClass }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/bookings`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/bookings`)
 
     try {
       let bookings
       if (Object.keys(request.query).length) {
-        console.table(FormatFilters(BookingClass, request.query))
         bookings = await Booking.find(FormatFilters(BookingClass, request.query)).lean()
       } else {
         bookings = await Booking.find().lean()
@@ -25,7 +24,7 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.get('/:id', async (request: FastifyRequest<{ Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/bookings/${request.params.id}`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/bookings/${request.params.id}`)
 
     try {
       const booking = await Booking.findById(request.params.id).lean()
@@ -36,8 +35,7 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.post('/', async (request: FastifyRequest<{ Body: BookingInterface }>, response: FastifyReply) => {
-    server.log.info(`Post http://${ROOT}:${PORT}/bookings`)
-    console.table(plainToInstance(BookingClass, request.body))
+    server.log.info(`[ POST ] - http://${ROOT}:${PORT}/bookings`)
 
     try {
       const booking = await Booking.create(plainToInstance(BookingClass, request.body))
@@ -48,11 +46,10 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.patch('/:id', async (request: FastifyRequest<{ Body: BookingInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Patch http://${ROOT}:${PORT}/bookings/${request.params.id}`)
-    console.table(request.body)
+    server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/bookings/${request.params.id}`)
 
     try {
-      const booking = await Booking.findByIdAndUpdate(request.params.id, request.body, { new: true })
+      const booking = await Booking.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean()
       return response.code(200).send(FormatResponse(BookingClass, booking))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
@@ -60,10 +57,10 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.delete('/:id', async (request: FastifyRequest<{ Body: BookingInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Delete http://${ROOT}:${PORT}/bookings/${request.params.id}`)
+    server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/bookings/${request.params.id}`)
 
     try {
-      await Booking.findByIdAndDelete(request.params.id)
+      await Booking.findByIdAndDelete(request.params.id).lean()
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

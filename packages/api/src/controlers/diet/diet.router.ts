@@ -2,68 +2,81 @@ import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify'
 import { PORT, ROOT } from '../../config'
 import { FormatFilters } from '../../utils/format-filters'
 import { FormatResponse } from '../../utils/format-response'
-import { plainToInstance } from 'class-transformer'
-
 import { Diet, DietClass, DietInterface } from './Diet'
+import { Day, DayInterface } from '../day/Day'
 
 export const dietsRouter: FastifyPluginAsync = async (server) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: DietClass }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/diets`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/diets`)
 
     try {
       let diets
       if (Object.keys(request.query).length) {
-        console.table(FormatFilters(DietClass, request.query))
-        diets = await Diet.find(FormatFilters(DietClass, request.query)).lean()
+        diets = await Diet.find(FormatFilters(DietClass, request.query)).populate('days')
       } else {
-        diets = await Diet.find().lean()
+        diets = await Diet.find().populate('days')
       }
-      return response.code(200).send(FormatResponse(DietClass, diets))
+      return response.code(200).send(FormatResponse(DietClass, diets, 'diet'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.get('/:id', async (request: FastifyRequest<{ Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/diets/${request.params.id}`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/diets/${request.params.id}`)
 
     try {
-      const diet = await Diet.findById(request.params.id).lean()
-      return response.code(200).send(FormatResponse(DietClass, diet))
+      const diet = await Diet.findById(request.params.id).lean().populate('days')
+      return response.code(200).send(FormatResponse(DietClass, diet, 'diet'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.post('/', async (request: FastifyRequest<{ Body: DietInterface }>, response: FastifyReply) => {
-    server.log.info(`Post http://${ROOT}:${PORT}/diets`)
-    console.table(plainToInstance(DietClass, request.body))
+    server.log.info(`[ POST ] - http://${ROOT}:${PORT}/diets`)
 
     try {
-      const diet = await Diet.create(plainToInstance(DietClass, request.body))
-      return response.code(200).send(FormatResponse(DietClass, diet))
+      const diet = request.body
+      const newDays = await Day.insertMany(request.body.days)
+      diet.days = newDays.map((day: DayInterface) => day._id)
+      const newDiet = await (await Diet.create(FormatResponse(DietClass, diet, 'diet'))).populate('days')
+      return response.code(200).send(FormatResponse(DietClass, newDiet, 'diet'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.patch('/:id', async (request: FastifyRequest<{ Body: DietInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Patch http://${ROOT}:${PORT}/diets/${request.params.id}`)
-    console.table(request.body)
+    server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/diets/${request.params.id}`)
 
     try {
-      const diet = await Diet.findByIdAndUpdate(request.params.id, request.body, { new: true })
-      return response.code(200).send(FormatResponse(DietClass, diet))
+      const diet = request.body
+      const dietId = request.params.id
+      const days = diet.days
+      diet.days = days.map((day: DayInterface) => day._id)
+
+      await Diet.findByIdAndUpdate(dietId, diet, { new: true })
+        .populate('days')
+        .then((diet) => {
+          const arrPromise = days.map((day: DayInterface) => Day.findByIdAndUpdate(day._id, day, { new: true }))
+          Promise.all(arrPromise)
+          return response.code(200).send(FormatResponse(DietClass, diet, 'diet'))
+        })
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.delete('/:id', async (request: FastifyRequest<{ Body: DietInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Delete http://${ROOT}:${PORT}/diets/${request.params.id}`)
+    server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/diets/${request.params.id}`)
 
     try {
-      await Diet.findByIdAndDelete(request.params.id)
+      await Diet.findByIdAndDelete(request.params.id).then((diet) => {
+        diet?.days.forEach(async (day: DayInterface) => {
+          await Day.findByIdAndDelete(day.toString())
+        })
+      })
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

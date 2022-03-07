@@ -2,63 +2,82 @@ import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify'
 import { PORT, ROOT } from '../../config'
 import { FormatFilters } from '../../utils/format-filters'
 import { FormatResponse } from '../../utils/format-response'
-import { plainToInstance } from 'class-transformer'
 
 import { Training, TrainingClass, TrainingInterface } from './Training'
+import { Exercise, ExerciseInterface } from '../exercise/Exercise'
 
 export const trainingsRouter: FastifyPluginAsync = async (server) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: TrainingClass }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/trainings`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/trainings`)
     try {
       let trainings
       if (Object.keys(request.query).length) {
-        console.table(FormatFilters(TrainingClass, request.query))
-        trainings = await Training.find(FormatFilters(TrainingClass, request.query)).lean()
+        trainings = await Training.find(FormatFilters(TrainingClass, request.query)).lean().populate('exercises')
       } else {
-        trainings = await Training.find().lean()
+        trainings = await Training.find().lean().populate('exercises')
       }
-      return response.code(200).send(FormatResponse(TrainingClass, trainings))
+      return response.code(200).send(FormatResponse(TrainingClass, trainings, 'training'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.get('/:id', async (request: FastifyRequest<{ Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/trainings/${request.params.id}`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/trainings/${request.params.id}`)
     try {
-      const training = await Training.findById(request.params.id).lean()
-      return response.code(200).send(FormatResponse(TrainingClass, training))
+      const training = await Training.findById(request.params.id).lean().populate('exercises')
+      return response.code(200).send(FormatResponse(TrainingClass, training, 'training'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.post('/', async (request: FastifyRequest<{ Body: TrainingInterface }>, response: FastifyReply) => {
-    server.log.info(`Post http://${ROOT}:${PORT}/trainings`)
-    console.table(plainToInstance(TrainingClass, request.body))
+    server.log.info(`[ POST ] - http://${ROOT}:${PORT}/trainings`)
+
     try {
-      const training = await Training.create(plainToInstance(TrainingClass, request.body))
-      return response.code(200).send(FormatResponse(TrainingClass, training))
+      const training = request.body
+      const newExercises = await Exercise.insertMany(request.body.exercises)
+      training.exercises = newExercises.map((exercise) => exercise._id)
+      const newTraining = await (await Training.create(FormatResponse(TrainingClass, training))).populate('exercises')
+      return response.code(200).send(FormatResponse(TrainingClass, newTraining, 'training'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.patch('/:id', async (request: FastifyRequest<{ Body: TrainingInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Patch http://${ROOT}:${PORT}/trainings/${request.params.id}`)
-    console.table(request.body)
+    server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/trainings/${request.params.id}`)
+
     try {
-      const training = await Training.findByIdAndUpdate(request.params.id, request.body, { new: true })
-      return response.code(200).send(FormatResponse(TrainingClass, training))
+      const training = request.body
+      const trainingId = request.params.id
+      const exercises = training.exercises
+      training.exercises = exercises.map((exercise: ExerciseInterface) => exercise._id)
+
+      await Training.findByIdAndUpdate(trainingId, training, { new: true })
+        .populate('exercises')
+        .then((training) => {
+          const arrPromise = exercises.map((exercise: ExerciseInterface) =>
+            Exercise.findByIdAndUpdate(exercise._id, exercise, { new: true })
+          )
+          Promise.all(arrPromise)
+          return response.code(200).send(FormatResponse(TrainingClass, training))
+        })
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
   })
 
   server.delete('/:id', async (request: FastifyRequest<{ Body: TrainingInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Delete http://${ROOT}:${PORT}/trainings/${request.params.id}`)
+    server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/trainings/${request.params.id}`)
+
     try {
-      await Training.findByIdAndDelete(request.params.id)
+      await Training.findByIdAndDelete(request.params.id).then((training) => {
+        training?.exercises.forEach(async (exercise: ExerciseInterface) => {
+          await Exercise.findByIdAndDelete(exercise.toString())
+        })
+      })
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

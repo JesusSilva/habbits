@@ -40,7 +40,7 @@ export const app: FastifyPluginAsync = async (app) => {
   })
 
   await app.get('/', (request: any, reply: any) => {
-    request.log.info(`Get http://${ROOT}:${PORT}/`)
+    request.log.info(`[ GET ] - http://${ROOT}:${PORT}/`)
     return reply.code(200).send({ status: 'Ok', message: 'Server Running' })
   })
 
@@ -54,9 +54,7 @@ export const app: FastifyPluginAsync = async (app) => {
   await app.register(usersRouter, { prefix: '/users' })
   await app.register(measuresRouter, { prefix: '/measures' })
   await app.register(exercisesRouter, { prefix: '/exercises' })
-
   await app.register(trainingsRouter, { prefix: '/trainings' })
-
   await app.register(daysRouter, { prefix: '/days' })
   await app.register(dietsRouter, { prefix: '/diets' })
   await app.register(bookingsRouter, { prefix: '/bookings' })

@@ -8,12 +8,11 @@ import { Day, DayClass, DayInterface } from './Day'
 
 export const daysRouter: FastifyPluginAsync = async (server) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: DayClass }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/days`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/days`)
 
     try {
       let days
       if (Object.keys(request.query).length) {
-        console.table(FormatFilters(DayClass, request.query))
         days = await Day.find(FormatFilters(DayClass, request.query)).lean()
       } else {
         days = await Day.find().lean()
@@ -25,7 +24,7 @@ export const daysRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.get('/:id', async (request: FastifyRequest<{ Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/days/${request.params.id}`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/days/${request.params.id}`)
 
     try {
       const day = await Day.findById(request.params.id).lean()
@@ -36,8 +35,7 @@ export const daysRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.post('/', async (request: FastifyRequest<{ Body: DayInterface }>, response: FastifyReply) => {
-    server.log.info(`Post http://${ROOT}:${PORT}/days`)
-    console.table(plainToInstance(DayClass, request.body))
+    server.log.info(`[ POST ] - http://${ROOT}:${PORT}/days`)
 
     try {
       const day = await Day.create(plainToInstance(DayClass, request.body))
@@ -48,11 +46,10 @@ export const daysRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.patch('/:id', async (request: FastifyRequest<{ Body: DayInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Patch http://${ROOT}:${PORT}/days/${request.params.id}`)
-    console.table(request.body)
+    server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/days/${request.params.id}`)
 
     try {
-      const day = await Day.findByIdAndUpdate(request.params.id, request.body, { new: true })
+      const day = await Day.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean()
       return response.code(200).send(FormatResponse(DayClass, day))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
@@ -60,10 +57,10 @@ export const daysRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.delete('/:id', async (request: FastifyRequest<{ Body: DayInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Delete http://${ROOT}:${PORT}/days/${request.params.id}`)
+    server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/days/${request.params.id}`)
 
     try {
-      await Day.findByIdAndDelete(request.params.id)
+      await Day.findByIdAndDelete(request.params.id).lean()
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

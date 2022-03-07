@@ -8,12 +8,11 @@ import { User, UserClass, UserInterface } from './User'
 
 export const usersRouter: FastifyPluginAsync = async (server) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: UserClass }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/users`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/users`)
 
     try {
       let users
       if (Object.keys(request.query).length) {
-        console.table(FormatFilters(UserClass, request.query))
         users = await User.find(FormatFilters(UserClass, request.query)).lean()
       } else {
         users = await User.find().lean()
@@ -25,7 +24,7 @@ export const usersRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.get('/:id', async (request: FastifyRequest<{ Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Get http://${ROOT}:${PORT}/users/${request.params.id}`)
+    server.log.info(`[ GET ] - http://${ROOT}:${PORT}/users/${request.params.id}`)
 
     try {
       const user = await User.findById(request.params.id).lean()
@@ -36,8 +35,7 @@ export const usersRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.post('/', async (request: FastifyRequest<{ Body: UserInterface }>, response: FastifyReply) => {
-    server.log.info(`Post http://${ROOT}:${PORT}/users`)
-    console.table(plainToInstance(UserClass, request.body))
+    server.log.info(`[ POST ] - http://${ROOT}:${PORT}/users`)
 
     try {
       const user = await User.create(plainToInstance(UserClass, request.body))
@@ -48,11 +46,10 @@ export const usersRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.patch('/:id', async (request: FastifyRequest<{ Body: UserInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Patch http://${ROOT}:${PORT}/users/${request.params.id}`)
-    console.table(request.body)
+    server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/users/${request.params.id}`)
 
     try {
-      const user = await User.findByIdAndUpdate(request.params.id, request.body, { new: true })
+      const user = await User.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean()
       return response.code(200).send(FormatResponse(UserClass, user))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
@@ -60,10 +57,10 @@ export const usersRouter: FastifyPluginAsync = async (server) => {
   })
 
   server.delete('/:id', async (request: FastifyRequest<{ Body: UserInterface; Params: { id: string } }>, response: FastifyReply) => {
-    server.log.info(`Delete http://${ROOT}:${PORT}/users/${request.params.id}`)
+    server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/users/${request.params.id}`)
 
     try {
-      await User.findByIdAndDelete(request.params.id)
+      await User.findByIdAndDelete(request.params.id).lean()
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
