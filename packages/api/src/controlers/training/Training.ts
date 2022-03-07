@@ -5,23 +5,23 @@ import { UserInterface } from '../user/User'
 
 export interface TrainingInterface extends Document {
   name: String
-  exercises: ExerciseInterface['_id']
   userId: UserInterface['_id']
+  exercises: ExerciseInterface['_id']
 }
 
 @Exclude()
 export class TrainingClass {
   @Expose({ name: '_id' }) id!: string
   @Expose() name!: string
-  @Expose() exercises!: ExerciseClass[]
   @Expose() userId!: UserInterface['_id']
+  @Expose() exercises!: ExerciseClass[]
 }
 
 const schema = new Schema(
   {
     name: { type: String, required: [true, 'Name required'] },
-    exercises: [{ type: Schema.Types.ObjectId, ref: 'Exercise' }],
-    userId: { type: Schema.Types.ObjectId, ref: 'User' }
+    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    exercises: [{ type: Schema.Types.ObjectId, ref: 'Exercise' }]
   },
   {
     timestamps: true
