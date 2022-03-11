@@ -3,7 +3,18 @@
     ".history": true,
     ".vscode": true,
     "packages/app/.next": true,
+    ".husky": true,
     "node_modules": true,
-    ".husky": true
+    "README.md": true,
+    "LICENSE": true,
+    "habbits_logo.svg": true,
+    ".prettierrc.json": true,
+    ".prettierignore": true,
+    ".lintstagedrc": true,
+    ".gitignore": true,
+    ".eslintrc.json": true,
+    ".eslintignore": true,
+    ".editorconfig": true,
+    ".commitlintrc.json": true
   }
 }

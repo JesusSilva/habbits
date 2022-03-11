@@ -3,7 +3,7 @@ import { Expose, Exclude } from 'class-transformer'
 
 export interface UserInterface extends Document {
   name: String
-  dateOfBirth: String
+  dateOfBirth: Number
   email: String
   phone: Number
   documentType: String
@@ -19,7 +19,7 @@ export interface UserInterface extends Document {
 export class UserClass {
   @Expose({ name: '_id' }) id!: string
   @Expose() name!: string
-  @Expose() dateOfBirth!: string
+  @Expose() dateOfBirth!: number
   @Expose() email!: string
   @Expose() phone!: number
   @Expose() documentType!: string
@@ -34,14 +34,14 @@ export class UserClass {
 const schema = new Schema(
   {
     name: { type: String, required: [true, 'Name required'] },
-    dateOfBirth: { type: String, required: [true, 'DateOfBirth required'] },
+    dateOfBirth: { type: Number, required: [true, 'DateOfBirth required'] },
     email: { type: String, unique: true, required: [true, 'Email required'] },
-    phone: { type: Number, unique: true, required: [true, 'Phone required'] },
+    phone: { type: String, unique: true, required: [true, 'Phone required'] },
     documentType: { type: String, required: [true, 'DocumentType required'] },
     documentID: { type: String, unique: true, required: [true, 'DocumentID required'] },
     address: { type: String },
     city: { type: String },
-    zip: { type: Number },
+    zip: { type: String },
     province: { type: String },
     country: { type: String }
   },

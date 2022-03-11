@@ -1,9 +1,10 @@
 import { Exclude, Expose } from 'class-transformer'
 import mongoose, { Schema, Document } from 'mongoose'
+import { UserClass, UserInterface } from '../user/User'
 
 export interface BookingInterface extends Document {
   date: Number
-  userId: String
+  user: UserInterface[]
   description: String
   latitude: Number
   longitude: Number
@@ -14,7 +15,7 @@ export interface BookingInterface extends Document {
 export class BookingClass {
   @Expose({ name: '_id' }) id!: string
   @Expose() date!: Number
-  @Expose() userId!: String
+  @Expose() user!: UserClass
   @Expose() description!: String
   @Expose() latitude!: Number
   @Expose() longitude!: Number
@@ -28,7 +29,7 @@ const schema = new Schema(
       unique: true,
       required: [true, 'Date required']
     },
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: [true, 'userId required'] },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: [true, 'userId required'] },
     description: { type: String },
     latitude: { type: Number },
     longitude: { type: Number },

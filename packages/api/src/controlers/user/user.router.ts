@@ -5,6 +5,10 @@ import { FormatResponse } from '../../utils/format-response'
 import { plainToInstance } from 'class-transformer'
 
 import { User, UserClass, UserInterface } from './User'
+import { Booking, BookingClass } from '../booking/Booking'
+import { Diet, DietClass } from '../diet/Diet'
+import { Training, TrainingClass } from '../training/Training'
+import { Measure, MeasureClass } from '../measurements/Measure'
 
 export const usersRouter: FastifyPluginAsync = async (server) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: UserClass }>, response: FastifyReply) => {
@@ -27,8 +31,24 @@ export const usersRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ GET ] - http://${ROOT}:${PORT}/users/${request.params.id}`)
 
     try {
-      const user = await User.findById(request.params.id).lean()
-      return response.code(200).send(FormatResponse(UserClass, user))
+      const id = request.params.id
+
+      let bookings = await Booking.findOne({ user: id }, {}, { sort: { createdAt: 1 } }).lean()
+      bookings = FormatResponse(BookingClass, bookings, 'booking')
+
+      let diets = await Diet.findOne({ user: id }, {}, { sort: { createdAt: -1 } }).populate('days')
+      diets = FormatResponse(DietClass, diets, 'diet')
+
+      let trainings = await Training.find({ user: id }, {}, { sort: { createdAt: -1 } }).lean().populate('exercises')
+      trainings = FormatResponse(TrainingClass, trainings, 'training')
+
+      let measures = await Measure.findOne({ user: id }, {}, { sort: { createdAt: -1 } })
+      measures = FormatResponse(MeasureClass, measures)
+
+      let user = await User.findById(id).lean()
+      user = FormatResponse(UserClass, user)
+
+      return response.code(200).send({ ...user, bookings, diets, trainings, measures })
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }

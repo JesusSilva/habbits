@@ -5,7 +5,8 @@ import { UserInterface } from '../user/User'
 
 export interface TrainingInterface extends Document {
   name: String
-  userId: UserInterface['_id']
+  description: String
+  user: UserInterface
   exercises: ExerciseInterface['_id']
 }
 
@@ -13,14 +14,16 @@ export interface TrainingInterface extends Document {
 export class TrainingClass {
   @Expose({ name: '_id' }) id!: string
   @Expose() name!: string
-  @Expose() userId!: UserInterface['_id']
+  @Expose() description!: string
+  @Expose() user!: UserInterface
   @Expose() exercises!: ExerciseClass[]
 }
 
 const schema = new Schema(
   {
     name: { type: String, required: [true, 'Name required'] },
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    description: { type: String },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     exercises: [{ type: Schema.Types.ObjectId, ref: 'Exercise' }]
   },
   {

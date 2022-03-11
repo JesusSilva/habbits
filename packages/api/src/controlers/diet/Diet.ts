@@ -7,7 +7,7 @@ export interface DietInterface extends Document {
   name: String
   instructions: String
   observations: String
-  userId: UserInterface['_id']
+  user: UserInterface
   days: DayInterface[]
 }
 
@@ -17,14 +17,14 @@ export class DietClass {
   @Expose() name!: String
   @Expose() instructions!: String
   @Expose() observations!: String
-  @Expose() userId!: UserInterface['_id']
+  @Expose() user!: UserInterface
   @Expose() days!: DayClass[]
 }
 
 const schema = new Schema(
   {
     name: { type: String, required: [true, 'Name required'] },
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     days: [{ type: Schema.Types.ObjectId, ref: 'Day' }],
     instructions: { type: String },
     observations: { type: String }

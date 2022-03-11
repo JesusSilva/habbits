@@ -37,9 +37,7 @@ export const trainingsRouter: FastifyPluginAsync = async (server) => {
 
     try {
       const training = request.body
-      const newExercises = await Exercise.insertMany(request.body.exercises)
-      training.exercises = newExercises.map((exercise) => exercise._id)
-      const newTraining = await (await Training.create(FormatResponse(TrainingClass, training))).populate('exercises')
+      const newTraining = await (await Training.create(FormatResponse(TrainingClass, training, 'training'))).populate('exercises')
       return response.code(200).send(FormatResponse(TrainingClass, newTraining, 'training'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
@@ -73,11 +71,7 @@ export const trainingsRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/trainings/${request.params.id}`)
 
     try {
-      await Training.findByIdAndDelete(request.params.id).then((training) => {
-        training?.exercises.forEach(async (exercise: ExerciseInterface) => {
-          await Exercise.findByIdAndDelete(exercise.toString())
-        })
-      })
+      await Training.findByIdAndDelete(request.params.id)
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

@@ -27,9 +27,9 @@ const schema = new Schema(
   {
     name: { type: String, required: [true, 'Name required'] },
     description: { type: String, required: [true, 'Description required'] },
-    mechanics: { type: String, required: [true, 'Mechanics required'] },
+    mechanics: { type: String },
     muscle: { type: String, required: [true, 'Muscle required'] },
-    material: { type: String, required: [true, 'Material required'] },
+    material: { type: String },
     level: { type: String, required: [true, 'Level required'] },
     image: { type: String, required: [true, 'Image required'] }
   },

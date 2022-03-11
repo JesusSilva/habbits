@@ -13,11 +13,15 @@ export const measuresRouter: FastifyPluginAsync = async (server) => {
     try {
       let measures
       if (Object.keys(request.query).length) {
-        measures = await Measure.find(FormatFilters(MeasureClass, request.query)).lean()
+        measures = await Measure.find(FormatFilters(MeasureClass, request.query), {}, { sort: { createdAt: -1 } })
+          .lean()
+          .populate('user')
       } else {
-        measures = await Measure.find().lean()
+        measures = await Measure.find({}, {}, { sort: { createdAt: -1 } })
+          .lean()
+          .populate('user')
       }
-      return response.code(200).send(FormatResponse(MeasureClass, measures))
+      return response.code(200).send(FormatResponse(MeasureClass, measures, 'measure'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -27,8 +31,8 @@ export const measuresRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ GET ] - http://${ROOT}:${PORT}/measures/${request.params.id}`)
 
     try {
-      const measure = await Measure.findById(request.params.id).lean()
-      return response.code(200).send(FormatResponse(MeasureClass, measure))
+      const measure = await Measure.findById(request.params.id).lean().populate('user')
+      return response.code(200).send(FormatResponse(MeasureClass, measure, 'measure'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -38,8 +42,8 @@ export const measuresRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ POST ] - http://${ROOT}:${PORT}/measures`)
 
     try {
-      const measure = await Measure.create(plainToInstance(MeasureClass, request.body))
-      return response.code(200).send(FormatResponse(MeasureClass, measure))
+      const measure = await (await Measure.create(plainToInstance(MeasureClass, request.body))).populate('user')
+      return response.code(200).send(FormatResponse(MeasureClass, measure, 'measure'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -49,8 +53,8 @@ export const measuresRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/measures/${request.params.id}`)
 
     try {
-      const measure = await Measure.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean()
-      return response.code(200).send(FormatResponse(MeasureClass, measure))
+      const measure = await Measure.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean().populate('user')
+      return response.code(200).send(FormatResponse(MeasureClass, measure, 'measure'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }

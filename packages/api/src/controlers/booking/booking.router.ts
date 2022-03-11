@@ -13,11 +13,11 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
     try {
       let bookings
       if (Object.keys(request.query).length) {
-        bookings = await Booking.find(FormatFilters(BookingClass, request.query)).lean()
+        bookings = await Booking.find(FormatFilters(BookingClass, request.query)).lean().populate('user')
       } else {
-        bookings = await Booking.find().lean()
+        bookings = await Booking.find().lean().populate('user')
       }
-      return response.code(200).send(FormatResponse(BookingClass, bookings))
+      return response.code(200).send(FormatResponse(BookingClass, bookings, 'booking'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -27,8 +27,8 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ GET ] - http://${ROOT}:${PORT}/bookings/${request.params.id}`)
 
     try {
-      const booking = await Booking.findById(request.params.id).lean()
-      return response.code(200).send(FormatResponse(BookingClass, booking))
+      const booking = await Booking.findById(request.params.id).lean().populate('user')
+      return response.code(200).send(FormatResponse(BookingClass, booking, 'booking'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -38,8 +38,8 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ POST ] - http://${ROOT}:${PORT}/bookings`)
 
     try {
-      const booking = await Booking.create(plainToInstance(BookingClass, request.body))
-      return response.code(200).send(FormatResponse(BookingClass, booking))
+      const booking = await (await Booking.create(plainToInstance(BookingClass, request.body))).populate('user')
+      return response.code(200).send(FormatResponse(BookingClass, booking, 'booking'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -49,8 +49,8 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ PATCH ] - http://${ROOT}:${PORT}/bookings/${request.params.id}`)
 
     try {
-      const booking = await Booking.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean()
-      return response.code(200).send(FormatResponse(BookingClass, booking))
+      const booking = await Booking.findByIdAndUpdate(request.params.id, request.body, { new: true }).lean().populate('user')
+      return response.code(200).send(FormatResponse(BookingClass, booking, 'booking'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })
     }
@@ -60,7 +60,7 @@ export const bookingsRouter: FastifyPluginAsync = async (server) => {
     server.log.info(`[ DELETE ] - http://${ROOT}:${PORT}/bookings/${request.params.id}`)
 
     try {
-      await Booking.findByIdAndDelete(request.params.id).lean()
+      await Booking.findByIdAndDelete(request.params.id).lean().populate('user')
       return response.code(200).send()
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

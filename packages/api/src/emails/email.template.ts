@@ -458,7 +458,7 @@ export const emailTemplate = `<!DOCTYPE html>
                                   role="presentation"
                                   style="
                                     border: none;
-                                    border-radius: 8px;
+                                    border-radius: 4px;
                                     cursor: auto;
                                     mso-padding-alt: 15px 25px 15px 25px;
                                     background: #00bd56;
@@ -480,7 +480,7 @@ export const emailTemplate = `<!DOCTYPE html>
                                       text-transform: none;
                                       padding: 15px 25px 15px 25px;
                                       mso-padding-alt: 0px;
-                                      border-radius: 8px;
+                                      border-radius: 4px;
                                     "
                                     target="_blank"
                                     >{{button}}</a

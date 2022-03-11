@@ -11,7 +11,7 @@ export interface MeasureInterface extends Document {
   waist: Number
   hip: Number
   legs: Number
-  userId: UserInterface['_id']
+  user: UserInterface
 }
 
 @Exclude()
@@ -25,7 +25,7 @@ export class MeasureClass {
   @Expose() waist!: Number
   @Expose() hip!: Number
   @Expose() legs!: Number
-  @Expose() userId: UserInterface['_id']
+  @Expose() user!: UserInterface
 }
 
 const schema = new Schema(
@@ -38,7 +38,7 @@ const schema = new Schema(
     waist: { type: Number, required: [true, 'Waist required'] },
     hip: { type: Number, required: [true, 'Hip required'] },
     legs: { type: Number, required: [true, 'Legs required'] },
-    userId: { type: Schema.Types.ObjectId, ref: 'User' }
+    user: { type: Schema.Types.ObjectId, ref: 'User' }
   },
   {
     timestamps: true
