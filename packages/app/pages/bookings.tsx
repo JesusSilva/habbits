@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 
 import { useBookings } from '../lib/Bookings'
 import { useEffect } from 'react'
@@ -99,6 +100,7 @@ export default function Bookings() {
                   <StyledTableCell align="center">Cliente</StyledTableCell>
                   <StyledTableCell align="center">Teléfono</StyledTableCell>
                   <StyledTableCell align="center">Descripción</StyledTableCell>
+                  <StyledTableCell align="center">Opciones</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -109,6 +111,9 @@ export default function Bookings() {
                     <StyledTableCell align="center">{row.user?.name}</StyledTableCell>
                     <StyledTableCell align="center">{row.user?.phone}</StyledTableCell>
                     <StyledTableCell align="center">{row.description}</StyledTableCell>
+                    <StyledTableCell align="center">
+                      <DeleteOutlinedIcon style={{ marginLeft: '16px' }} onClick={() => actions.deleteBooking(row.id)} />
+                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

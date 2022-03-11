@@ -97,7 +97,7 @@ export default function Exercises() {
         </section>
         <section style={{ display: 'flex', flexWrap: 'wrap', padding: '12px' }}>
           {state.exercises.map((exercise, index) => (
-            <Card key={exercise.id} sx={{ maxWidth: 345 }} style={{ margin: '12px' }}>
+            <Card key={exercise.id} sx={{ maxWidth: 340 }} style={{ margin: '12px' }}>
               <CardMedia component="img" height="345" image={exercise.image} alt={exercise.name} />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

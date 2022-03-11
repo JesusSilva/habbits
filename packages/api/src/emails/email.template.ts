@@ -1,9 +1,5 @@
 export const emailTemplate = `<!DOCTYPE html>
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:v="urn:schemas-microsoft-com:vml"
-  xmlns:o="urn:schemas-microsoft-com:office:office"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>{{subject}}</title>
     <!--[if !mso]><!-->
@@ -88,18 +84,11 @@ export const emailTemplate = `<!DOCTYPE html>
       }
     </style>
   </head>
-  <body style="word-spacing: normal; background-color: #f0f2ff">
-    <div style="background-color: #f0f2ff">
+  <body style="word-spacing: normal; background-color: #eafaf3">
+    <div style="background-color: #eafaf3">
       <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
       <div style="margin: 0px auto; max-width: 600px">
-        <table
-          align="center"
-          border="0"
-          cellpadding="0"
-          cellspacing="0"
-          role="presentation"
-          style="width: 100%"
-        >
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%">
           <tbody>
             <tr>
               <td
@@ -117,38 +106,17 @@ export const emailTemplate = `<!DOCTYPE html>
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
                 <div
                   class="mj-column-per-100 mj-outlook-group-fix"
-                  style="
-                    font-size: 0px;
-                    text-align: left;
-                    direction: ltr;
-                    display: inline-block;
-                    vertical-align: top;
-                    width: 100%;
-                  "
+                  style="font-size: 0px; text-align: left; direction: ltr; display: inline-block; vertical-align: top; width: 100%"
                 >
-                  <table
-                    border="0"
-                    cellpadding="0"
-                    cellspacing="0"
-                    role="presentation"
-                    width="100%"
-                  >
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
                     <tbody>
                       <tr>
                         <td style="vertical-align: top; padding: 0">
-                          <table
-                            border="0"
-                            cellpadding="0"
-                            cellspacing="0"
-                            role="presentation"
-                            width="100%"
-                          >
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
                             <tbody>
                               <tr>
                                 <td style="font-size: 0px; word-break: break-word">
-                                  <div style="height: 50px; line-height: 50px">
-                                    &#8202;
-                                  </div>
+                                  <div style="height: 50px; line-height: 50px">&#8202;</div>
                                 </td>
                               </tr>
                             </tbody>
@@ -165,14 +133,7 @@ export const emailTemplate = `<!DOCTYPE html>
         </table>
       </div>
       <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" bgcolor="#ffffff" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-      <div
-        style="
-          background: #ffffff;
-          background-color: #ffffff;
-          margin: 0px auto;
-          max-width: 600px;
-        "
-      >
+      <div style="background: #ffffff; background-color: #ffffff; margin: 0px auto; max-width: 600px">
         <table
           align="center"
           border="0"
@@ -183,36 +144,13 @@ export const emailTemplate = `<!DOCTYPE html>
         >
           <tbody>
             <tr>
-              <td
-                style="
-                  direction: ltr;
-                  font-size: 0px;
-                  padding: 0 0 0 0;
-                  padding-bottom: 40px;
-                  padding-top: 40px;
-                  text-align: center;
-                "
-              >
+              <td style="direction: ltr; font-size: 0px; padding: 0 0 0 0; padding-bottom: 40px; padding-top: 40px; text-align: center">
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
                 <div
                   class="mj-column-per-100 mj-outlook-group-fix"
-                  style="
-                    font-size: 0px;
-                    text-align: left;
-                    direction: ltr;
-                    display: inline-block;
-                    vertical-align: top;
-                    width: 100%;
-                  "
+                  style="font-size: 0px; text-align: left; direction: ltr; display: inline-block; vertical-align: top; width: 100%"
                 >
-                  <table
-                    border="0"
-                    cellpadding="0"
-                    cellspacing="0"
-                    role="presentation"
-                    style="vertical-align: top"
-                    width="100%"
-                  >
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align: top" width="100%">
                     <tbody>
                       <tr>
                         <td
@@ -271,14 +209,7 @@ export const emailTemplate = `<!DOCTYPE html>
         </table>
       </div>
       <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" bgcolor="#ffffff" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-      <div
-        style="
-          background: #ffffff;
-          background-color: #ffffff;
-          margin: 0px auto;
-          max-width: 600px;
-        "
-      >
+      <div style="background: #ffffff; background-color: #ffffff; margin: 0px auto; max-width: 600px">
         <table
           align="center"
           border="0"
@@ -289,36 +220,13 @@ export const emailTemplate = `<!DOCTYPE html>
         >
           <tbody>
             <tr>
-              <td
-                style="
-                  direction: ltr;
-                  font-size: 0px;
-                  padding: 0 0 0 0;
-                  padding-bottom: 20px;
-                  padding-top: 0px;
-                  text-align: center;
-                "
-              >
+              <td style="direction: ltr; font-size: 0px; padding: 0 0 0 0; padding-bottom: 20px; padding-top: 0px; text-align: center">
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
                 <div
                   class="mj-column-per-100 mj-outlook-group-fix"
-                  style="
-                    font-size: 0px;
-                    text-align: left;
-                    direction: ltr;
-                    display: inline-block;
-                    vertical-align: top;
-                    width: 100%;
-                  "
+                  style="font-size: 0px; text-align: left; direction: ltr; display: inline-block; vertical-align: top; width: 100%"
                 >
-                  <table
-                    border="0"
-                    cellpadding="0"
-                    cellspacing="0"
-                    role="presentation"
-                    style="vertical-align: top"
-                    width="100%"
-                  >
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align: top" width="100%">
                     <tbody>
                       <tr>
                         <td
@@ -347,20 +255,9 @@ export const emailTemplate = `<!DOCTYPE html>
                             <h1
                               class="text-build-content"
                               data-testid="JPvyzIomLhv"
-                              style="
-                                margin-top: 10px;
-                                margin-bottom: 10px;
-                                font-weight: normal;
-                              "
+                              style="margin-top: 10px; margin-bottom: 10px; font-weight: normal"
                             >
-                              <span
-                                style="
-                                  color: #00bd56;
-                                  font-family: Arial;
-                                  font-size: 30px;
-                                "
-                                ><b>{{title}}</b></span
-                              >
+                              <span style="color: #00bd56; font-family: Arial; font-size: 30px"><b>{{title}}</b></span>
                             </h1>
                           </div>
                         </td>
@@ -389,40 +286,14 @@ export const emailTemplate = `<!DOCTYPE html>
                               color: #000000;
                             "
                           >
-                            <p
-                              class="text-build-content"
-                              data-testid="238WXrQnOAy"
-                              style="margin: 10px 0; margin-top: 10px"
-                            >
-                              <span
-                                style="
-                                  color: #55575d;
-                                  font-family: Arial;
-                                  font-size: 15px;
-                                  line-height: 22px;
-                                "
-                                >Hola {{username}},</span
-                              >
+                            <p class="text-build-content" data-testid="238WXrQnOAy" style="margin: 10px 0; margin-top: 10px">
+                              <span style="color: #55575d; font-family: Arial; font-size: 15px; line-height: 22px">Hola {{username}},</span>
                             </p>
-                            <p
-                              class="text-build-content"
-                              data-testid="238WXrQnOAy"
-                              style="margin: 10px 0"
-                            >
+                            <p class="text-build-content" data-testid="238WXrQnOAy" style="margin: 10px 0">
                               <span style="color: #55575d">{{message}}</span>
                             </p>
-                            <p
-                              class="text-build-content"
-                              data-testid="238WXrQnOAy"
-                              style="margin: 10px 0; margin-bottom: 10px"
-                            >
-                              <span
-                                style="
-                                  color: #55575d;
-                                  font-family: Arial;
-                                  font-size: 14px;
-                                  line-height: 22px;
-                                "
+                            <p class="text-build-content" data-testid="238WXrQnOAy" style="margin: 10px 0; margin-bottom: 10px">
+                              <span style="color: #55575d; font-family: Arial; font-size: 14px; line-height: 22px"
                                 >Saludos, el equipo de Habbits.</span
                               >
                             </p>
@@ -430,66 +301,7 @@ export const emailTemplate = `<!DOCTYPE html>
                         </td>
                       </tr>
                       <tr>
-                        <td
-                          align="center"
-                          vertical-align="middle"
-                          style="
-                            font-size: 0px;
-                            padding: 10px 25px 10px 25px;
-                            padding-top: 10px;
-                            padding-right: 25px;
-                            padding-bottom: 10px;
-                            padding-left: 25px;
-                            word-break: break-word;
-                          "
-                        >
-                          <table
-                            border="0"
-                            cellpadding="0"
-                            cellspacing="0"
-                            role="presentation"
-                            style="border-collapse: separate; line-height: 100%"
-                          >
-                            <tbody>
-                              <tr>
-                                <td
-                                  align="center"
-                                  bgcolor="#00bd56"
-                                  role="presentation"
-                                  style="
-                                    border: none;
-                                    border-radius: 4px;
-                                    cursor: auto;
-                                    mso-padding-alt: 15px 25px 15px 25px;
-                                    background: #00bd56;
-                                  "
-                                  valign="middle"
-                                >
-                                  <a
-                                    href="{{buttonLink}}"
-                                    style="
-                                      display: inline-block;
-                                      background: #00bd56;
-                                      color: #ffffff;
-                                      font-family: Arial, sans-serif;
-                                      font-size: 13px;
-                                      font-weight: normal;
-                                      line-height: 120%;
-                                      margin: 0;
-                                      text-decoration: none;
-                                      text-transform: none;
-                                      padding: 15px 25px 15px 25px;
-                                      mso-padding-alt: 0px;
-                                      border-radius: 4px;
-                                    "
-                                    target="_blank"
-                                    >{{button}}</a
-                                  >
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
+                        <td style="font-size: 0px; word-break: break-word"><div style="height: 50px; line-height: 50px">&#8202;</div></td>
                       </tr>
                     </tbody>
                   </table>
@@ -502,62 +314,31 @@ export const emailTemplate = `<!DOCTYPE html>
       </div>
       <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" role="presentation" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
       <div style="margin: 0px auto; max-width: 600px">
-        <table
-          align="center"
-          border="0"
-          cellpadding="0"
-          cellspacing="0"
-          role="presentation"
-          style="width: 100%"
-        >
+        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%">
           <tbody>
             <tr>
-              <td
-                style="
-                  direction: ltr;
-                  font-size: 0px;
-                  padding: 20px 0px 20px 0px;
-                  text-align: center;
-                "
-              >
+              <td style="direction: ltr; font-size: 0px; padding: 20px 0px 20px 0px; text-align: center">
                 <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
                 <div
                   class="mj-column-per-100 mj-outlook-group-fix"
-                  style="
-                    font-size: 0px;
-                    text-align: left;
-                    direction: ltr;
-                    display: inline-block;
-                    vertical-align: top;
-                    width: 100%;
-                  "
+                  style="font-size: 0px; text-align: left; direction: ltr; display: inline-block; vertical-align: top; width: 100%"
                 >
-                  <table
-                    border="0"
-                    cellpadding="0"
-                    cellspacing="0"
-                    role="presentation"
-                    width="100%"
-                  >
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
                     <tbody>
                       <tr>
                         <td style="vertical-align: top; padding: 0">
-                          <table
-                            border="0"
-                            cellpadding="0"
-                            cellspacing="0"
-                            role="presentation"
-                            width="100%"
-                          >
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
                             <tbody>
                               <tr>
                                 <td
                                   align="center"
                                   style="
                                     font-size: 0px;
-                                    padding: 10px 25px;
+                                    padding: 0px 25px 0px 25px;
                                     padding-top: 0px;
+                                    padding-right: 25px;
                                     padding-bottom: 0px;
+                                    padding-left: 25px;
                                     word-break: break-word;
                                   "
                                 >
@@ -571,12 +352,17 @@ export const emailTemplate = `<!DOCTYPE html>
                                       color: #000000;
                                     "
                                   >
-                                    <p style="margin: 10px 0">
+                                    <p
+                                      class="text-build-content"
+                                      data-testid="7HQFNtDG1D2b"
+                                      style="margin: 10px 0; margin-top: 10px; margin-bottom: 10px"
+                                    >
                                       Este email fue enviado a {{to}},
                                       <a
-                                        href="{{unsubscriberLink}}"
+                                        class="link-build-content"
                                         style="color: inherit; text-decoration: none"
                                         target="_blank"
+                                        href="{{unsubscriberLink}}"
                                         >pulse aquí para cancelar la suscripción</a
                                       >.
                                     </p>
@@ -586,13 +372,7 @@ export const emailTemplate = `<!DOCTYPE html>
                               <tr>
                                 <td
                                   align="center"
-                                  style="
-                                    font-size: 0px;
-                                    padding: 10px 25px;
-                                    padding-top: 0px;
-                                    padding-bottom: 0px;
-                                    word-break: break-word;
-                                  "
+                                  style="font-size: 0px; padding: 10px 25px; padding-top: 0px; padding-bottom: 0px; word-break: break-word"
                                 >
                                   <div
                                     style="
@@ -603,9 +383,7 @@ export const emailTemplate = `<!DOCTYPE html>
                                       text-align: center;
                                       color: #000000;
                                     "
-                                  >
-                                    <p style="margin: 10px 0"></p>
-                                  </div>
+                                  ></div>
                                 </td>
                               </tr>
                             </tbody>

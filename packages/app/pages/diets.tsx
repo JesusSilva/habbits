@@ -43,7 +43,7 @@ export default function Diets() {
     >
       <section className="container">
         <NewDiet />
-        <section className="card" style={{ marginTop: '24px' }}>
+        <section className="card" style={{ margin: '24px 0' }}>
           <span>Dietas en Base de Datos</span>
           <form onSubmit={handleSubmit(onFilter)} style={{ margin: '24px 0 12px 0', display: 'flex', justifyContent: 'flex-end' }}>
             <TextField

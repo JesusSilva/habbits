@@ -1,12 +1,14 @@
-import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { PORT, ROOT } from '../../config'
 import { FormatFilters } from '../../utils/format-filters'
 import { FormatResponse } from '../../utils/format-response'
 
 import { Training, TrainingClass, TrainingInterface } from './Training'
 import { Exercise, ExerciseInterface } from '../exercise/Exercise'
+import { User } from '../user/User'
+import { emailTemplate } from '../../emails/email.template'
 
-export const trainingsRouter: FastifyPluginAsync = async (server) => {
+export const trainingsRouter: any = async (server: any) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: TrainingClass }>, response: FastifyReply) => {
     server.log.info(`[ GET ] - http://${ROOT}:${PORT}/trainings`)
     try {
@@ -38,6 +40,24 @@ export const trainingsRouter: FastifyPluginAsync = async (server) => {
     try {
       const training = request.body
       const newTraining = await (await Training.create(FormatResponse(TrainingClass, training, 'training'))).populate('exercises')
+      const user = await User.findById(newTraining.user).lean()
+      if (user?._id) {
+        const { mailer } = server
+        mailer.sendMail({
+          to: user?.email,
+          subject: 'Nuevo entrenamiento asignado',
+          html: emailTemplate
+            .replace('{{subject}}', 'Nuevo entrenamiento disponible')
+            .replace('{{title}}', 'Tu entrenador personal te ha asignado un nuevo entrenamiento')
+            .replace('{{username}}', user.name.toString())
+            .replace(
+              '{{message}}',
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Duis tristique sollicitudin nibh sit amet commodo. Purus ut faucibus pulvinar elementum integer enim neque. Nullam vehicula ipsum a arcu cursus vitae congue. Nisl rhoncus mattis rhoncus urna neque. Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Lacus sed turpis tincidunt id aliquet risus feugiat. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Vestibulum mattis ullamcorper velit sed ullamcorper.'
+            )
+            .replace('{{to}}', user.email.toString())
+            .replace('{{unsubscriberLink}}', 'https://habbits.es')
+        })
+      }
       return response.code(200).send(FormatResponse(TrainingClass, newTraining, 'training'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

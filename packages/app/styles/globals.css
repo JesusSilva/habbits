@@ -61,3 +61,7 @@ a {
 .MuiAlert-icon {
   color: #ffffff !important;
 }
+
+.MuiSvgIcon-root {
+  cursor: pointer !important;
+}

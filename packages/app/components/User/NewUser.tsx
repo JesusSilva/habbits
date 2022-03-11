@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useUsers } from '../../lib/Users'
 import TextField from '@mui/material/TextField'
 import styled from 'styled-components'
+import { getTime, format } from 'date-fns'
 
 export default function NewUser() {
   // eslint-disable-next-line no-unused-vars
@@ -10,6 +11,8 @@ export default function NewUser() {
   const { register, handleSubmit } = useForm()
 
   const onNew = (data) => {
+    data.dateOfBirth = getTime(new Date(data.dateOfBirth))
+    console.log(format(data.dateOfBirth, 'dd-MM-yyyy'))
     actions.createUser(data)
   }
 

@@ -34,7 +34,7 @@ export default function NewDiet() {
 
   return (
     <section style={{ backgroundColor: '#ffffff', padding: '24px 0 12px 24px', borderRadius: '4px' }}>
-      <span>Añadir nuevas medidas</span>
+      <span>Añadir nueva dieta</span>
       <form onSubmit={handleSubmit(onNew)}>
         <FormControl style={{ margin: '12px 24px 12px 0', width: 'calc(25% - 24px)' }}>
           <InputLabel id="select-user-id">Usuarios</InputLabel>

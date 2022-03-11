@@ -78,7 +78,6 @@ export default function Users() {
             <Table sx={{ minWidth: 600 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell></StyledTableCell>
                   <StyledTableCell align="center">Nombre</StyledTableCell>
                   <StyledTableCell align="center">Teléfono</StyledTableCell>
                   <StyledTableCell align="center">Email</StyledTableCell>
@@ -89,9 +88,6 @@ export default function Users() {
               <TableBody>
                 {state.users.map((row) => (
                   <StyledTableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
                     <StyledTableCell align="center">{row.name}</StyledTableCell>
                     <StyledTableCell align="center">{row.phone}</StyledTableCell>
                     <StyledTableCell align="center">{row.email}</StyledTableCell>

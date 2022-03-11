@@ -18,8 +18,8 @@ export default function TrainingsComponent(props: Props) {
       <h3 style={{ marginTop: '0' }}>{props.training?.name}:</h3>
       <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
       {props.training.exercises.map((exercise, index) => (
-            <Card key={exercise.id} sx={{ maxWidth: 345 }} style={{ margin: '12px' }}>
-              <CardMedia component="img" height="345" image={exercise.image} alt={exercise.name} />
+            <Card key={exercise.id} sx={{ maxWidth: 328 }} style={{ margin: '12px' }}>
+              <CardMedia component="img" height="328" image={exercise.image} alt={exercise.name} />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {exercise.name}

@@ -1,11 +1,12 @@
-import { FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { PORT, ROOT } from '../../config'
 import { FormatFilters } from '../../utils/format-filters'
 import { FormatResponse } from '../../utils/format-response'
 import { Diet, DietClass, DietInterface } from './Diet'
 import { Day, DayInterface } from '../day/Day'
+import { emailTemplate } from '../../emails/email.template'
 
-export const dietsRouter: FastifyPluginAsync = async (server) => {
+export const dietsRouter: any = async (server: any) => {
   server.get('/', async (request: FastifyRequest<{ Querystring: DietClass }>, response: FastifyReply) => {
     server.log.info(`[ GET ] - http://${ROOT}:${PORT}/diets`)
 
@@ -41,6 +42,25 @@ export const dietsRouter: FastifyPluginAsync = async (server) => {
       const newDays = await Day.insertMany(diet.days)
       diet.days = newDays.map((day: DayInterface) => day._id)
       const newDiet = await (await (await Diet.create(FormatResponse(DietClass, diet, 'diet'))).populate('days')).populate('user')
+
+      if (newDiet.user?.id) {
+        const { mailer } = server
+        mailer.sendMail({
+          to: newDiet.user.email,
+          subject: 'Nueva dieta asignada',
+          html: emailTemplate
+            .replace('{{subject}}', 'Nueva dieta disponible')
+            .replace('{{title}}', 'Tu entrenador personal te ha asignado un nueva dieta')
+            .replace('{{username}}', newDiet.user?.name.toString())
+            .replace(
+              '{{message}}',
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Duis tristique sollicitudin nibh sit amet commodo. Purus ut faucibus pulvinar elementum integer enim neque. Nullam vehicula ipsum a arcu cursus vitae congue. Nisl rhoncus mattis rhoncus urna neque. Enim blandit volutpat maecenas volutpat blandit aliquam etiam erat. Lacus sed turpis tincidunt id aliquet risus feugiat. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Vestibulum mattis ullamcorper velit sed ullamcorper.'
+            )
+            .replace('{{to}}', newDiet.user?.email.toString())
+            .replace('{{unsubscriberLink}}', 'https://habbits.es')
+        })
+      }
+
       return response.code(200).send(FormatResponse(DietClass, newDiet, 'diet'))
     } catch (error) {
       return response.code(400).send({ status: 'Error', message: error })

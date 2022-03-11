@@ -28,7 +28,7 @@ export function FormatResponse(model: any, response: any, type: string = 'normal
         )
         return training
       })
-      console.log(response)
+
       return response
     } else if (type === 'booking') {
       response = response as BookingClass[]

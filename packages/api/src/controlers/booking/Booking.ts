@@ -4,7 +4,7 @@ import { UserClass, UserInterface } from '../user/User'
 
 export interface BookingInterface extends Document {
   date: Number
-  user: UserInterface[]
+  user: UserInterface
   description: String
   latitude: Number
   longitude: Number
@@ -14,18 +14,18 @@ export interface BookingInterface extends Document {
 @Exclude()
 export class BookingClass {
   @Expose({ name: '_id' }) id!: string
-  @Expose() date!: Number
+  @Expose() date!: number
   @Expose() user!: UserClass
-  @Expose() description!: String
-  @Expose() latitude!: Number
-  @Expose() longitude!: Number
-  @Expose() address!: String
+  @Expose() description!: string
+  @Expose() latitude!: number
+  @Expose() longitude!: number
+  @Expose() address!: string
 }
 
 const schema = new Schema(
   {
     date: {
-      type: String,
+      type: Number,
       unique: true,
       required: [true, 'Date required']
     },
